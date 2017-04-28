@@ -20,3 +20,5 @@ val authenticate = Filter { req, _ ->
 
 
 fun Request.getUser(): User = this.session().attribute<User>("user")
+
+inline fun <reified T> Request.bodyAsObject(): T = ObjectMapper().readValue(this.bodyAsBytes(), T::class.java)

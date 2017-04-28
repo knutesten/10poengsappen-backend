@@ -4,25 +4,26 @@ import com.netcompany.tipoengsappen.dao.TeamDao
 import com.netcompany.tipoengsappen.dao.UserDao
 import org.springframework.stereotype.Component
 import spark.Route
-import spark.Spark.before
-import spark.Spark.get
+import spark.Spark.*
 
 
 @Component
-class TeamService(val teamDao: TeamDao, val userDao: UserDao) : SparkService {
+open class TeamService(val teamDao: TeamDao, val userDao: UserDao) : SparkService {
 
     override fun init() {
-        before("/api/teams", authenticate)
-        before("/api/teams/*", authenticate)
+        path("/api/teams") {
+            before("", authenticate)
+            before("/*", authenticate)
 
-        get("/api/teams", Route { req, _ ->
-            val user = req.getUser()
-            teamDao.allForUser(user.id)
-        }, toJson)
+            get("", Route { req, _ ->
+                val user = req.getUser()
+                teamDao.allForUser(user.id)
+            }, toJson)
 
-        get("/api/teams/:id", Route { req, _ ->
-            userDao.allUsersWithPointsForTeam(req.params(":id").toInt(), req.getUser().id)
-        }, toJson)
+            get("/:id", Route { req, _ ->
+                userDao.allUsersWithPointsForTeam(req.params(":id").toInt(), req.getUser().id)
+            }, toJson)
+        }
     }
 }
 

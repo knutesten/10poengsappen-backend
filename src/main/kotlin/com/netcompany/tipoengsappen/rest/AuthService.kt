@@ -11,7 +11,7 @@ import java.security.SecureRandom
 
 
 @Component
-class AuthService(val openIdConnectAuth: OpenIdConnectAuth,
+open class AuthService(val openIdConnectAuth: OpenIdConnectAuth,
                   val userDao: UserDao) : SparkService {
     override fun init() {
         get("/api/auth/login") { req, res ->
@@ -31,7 +31,7 @@ class AuthService(val openIdConnectAuth: OpenIdConnectAuth,
             try {
                 val email = openIdConnectAuth.exchangeCodeForEmail(req.queryParams("code"))
                 req.session().attribute("user", userDao.findByEmail(email))
-                res.redirect("/api/auth/user")
+                res.redirect("/")
                 res
             } catch (_: DataAccessException) {
                 halt(401, "You are not a registered user.")
