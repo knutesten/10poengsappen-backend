@@ -1,3 +1,5 @@
+server.url: http://localhost:8080
+
 open-id-connect:
   redirect-uri: http://localhost:4567/api/auth/code
   discovery-document-uri: https://accounts.google.com/.well-known/openid-configuration
@@ -5,3 +7,11 @@ open-id-connect:
   secret: ae7ftmx7fnLdsX6FNx53S5HI
 
 spring.datasource.url: jdbc:h2:./10poengsappen
+
+---
+
+spring.profiles: prod
+
+server.url: https://tipoengsappen.frisk.site
+open-id-connect:
+  redirect-uri: https://tipoengsappen.frisk.site/api/auth/code
