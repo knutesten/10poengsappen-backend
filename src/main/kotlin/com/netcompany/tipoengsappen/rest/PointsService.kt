@@ -9,11 +9,14 @@ import spark.Spark.*
 open class PointsService(val pointsDao: PointsDao) : SparkService {
     override fun init() {
         before("/api/points", authenticate)
-        put("/api/points", {req, res ->
+        post("/api/points", {req, res ->
             val points = req.bodyAsObject<Points>()
 
             if (points.giverId != req.getUser().id)
                 halt(400, "You can only give points from yourself.")
+
+            if (points.giverId == points.receiverId)
+                halt(400, "You can not give points to yourself.")
 
             pointsDao.insert(points)
             res.status(204)
