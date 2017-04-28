@@ -19,6 +19,7 @@ open class AuthService(val openIdConnectAuth: OpenIdConnectAuth,
             val state = BigInteger(130, SecureRandom()).toString(32)
             req.session(true)
             req.session().attribute("state", state)
+            req.session().attribute("redirectUrl", "${req.scheme()}://${req.host()}")
             res.redirect(openIdConnectAuth.createAuthenticationUrl(state))
             res
         }
@@ -32,7 +33,7 @@ open class AuthService(val openIdConnectAuth: OpenIdConnectAuth,
             try {
                 val email = openIdConnectAuth.exchangeCodeForEmail(req.queryParams("code"))
                 req.session().attribute("user", userDao.findByEmail(email))
-                res.redirect("/")
+                res.redirect(req.session().attribute("redirectUrl"))
                 res
             } catch (_: DataAccessException) {
                 halt(401, "You are not a registered user.")
