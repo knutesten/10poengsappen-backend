@@ -5,8 +5,9 @@ CREATE TABLE user (
 );
 
 CREATE TABLE team (
-  id   INT PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(255) NOT NULL,
+  id           INT PRIMARY KEY AUTO_INCREMENT,
+  display_name VARCHAR(255) NOT NULL,
+  name         VARCHAR(255) NOT NULL,
 );
 
 CREATE TABLE user_team (
