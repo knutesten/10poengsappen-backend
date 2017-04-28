@@ -4,6 +4,7 @@ import com.netcompany.tipoengsappen.auth.OpenIdConnectAuth
 import com.netcompany.tipoengsappen.dao.UserDao
 import org.springframework.dao.DataAccessException
 import org.springframework.stereotype.Component
+import spark.Route
 import spark.Spark.get
 import spark.Spark.halt
 import java.math.BigInteger
@@ -12,7 +13,7 @@ import java.security.SecureRandom
 
 @Component
 open class AuthService(val openIdConnectAuth: OpenIdConnectAuth,
-                  val userDao: UserDao) : SparkService {
+                       val userDao: UserDao) : SparkService {
     override fun init() {
         get("/api/auth/login") { req, res ->
             val state = BigInteger(130, SecureRandom()).toString(32)
@@ -43,5 +44,7 @@ open class AuthService(val openIdConnectAuth: OpenIdConnectAuth,
             res.status(204)
             res
         }
+
+        get("/api/auth/session", Route { req, _ -> req.session().attribute("user") }, toJson)
     }
 }
