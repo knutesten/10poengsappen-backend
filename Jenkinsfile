@@ -6,7 +6,7 @@ node {
   }
 
   stage('Build') {
-    sh 'mvn clean install -DskipTests'
+    sh 'mvn clean package -DskipTests'
     if (env.BRANCH_NAME == 'master') {
       step([$class: 'ArtifactArchiver', artifacts: '**/target/10poengsappen.jar', fingerprint: true])
     }
