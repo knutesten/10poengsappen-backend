@@ -9,7 +9,7 @@ import spark.Spark.*
 open class PointsService(val pointsDao: PointsDao) : SparkService {
     override fun init() {
         before("/api/points", authenticate)
-        post("/api/points", {req, res ->
+        post("/api/points") {req, res ->
             val points = req.bodyAsObject<Points>()
 
             if (points.giverId != req.getUser().id)
@@ -21,6 +21,6 @@ open class PointsService(val pointsDao: PointsDao) : SparkService {
             pointsDao.insert(points)
             res.status(204)
             res
-        })
+        }
     }
 }
