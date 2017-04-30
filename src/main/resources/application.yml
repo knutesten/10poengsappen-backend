@@ -7,6 +7,7 @@ open-id-connect:
   secret: ae7ftmx7fnLdsX6FNx53S5HI
 
 spring.datasource.url: jdbc:h2:./10poengsappen
+spring.datasource.username: sa
 
 ---
 

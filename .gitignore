@@ -12,3 +12,7 @@ buildNumber.properties
 # IntelliJ
 .idea/
 *.iml
+
+# H2 Embedded database
+*.mv.db
+*.h2.db

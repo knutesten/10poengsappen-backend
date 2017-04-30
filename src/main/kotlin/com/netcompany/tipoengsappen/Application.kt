@@ -3,16 +3,23 @@ package com.netcompany.tipoengsappen
 import com.netcompany.tipoengsappen.auth.DiscoveryDocument
 import com.netcompany.tipoengsappen.auth.OpenIdConnectAuth
 import com.netcompany.tipoengsappen.rest.SparkService
+import org.h2.tools.Server
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.core.env.Environment
 
 @SpringBootApplication
 open class Application {
     @Bean
-    open fun init(services: Array<SparkService>) = CommandLineRunner {
+    open fun init(services: Array<SparkService>, environment: Environment) = CommandLineRunner {
+        if (!environment.activeProfiles.contains("prod")) {
+            val server = Server.createTcpServer().start()
+            println("H2 tcp server started: " + server.url)
+        }
+
         services.forEach(SparkService::init)
     }
 
