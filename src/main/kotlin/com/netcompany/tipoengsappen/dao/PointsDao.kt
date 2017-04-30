@@ -10,8 +10,8 @@ import java.time.Instant
 @Component
 open class PointsDao(val namedTemplate: NamedParameterJdbcTemplate) {
     fun insert(points: Points): Unit {
-        if (points.amount > 10)
-            throw IllegalArgumentException("You can not give more than 10 points.")
+        if (points.amount < 1 || points.amount > 10)
+            throw IllegalArgumentException("The amount of points given must be between 1 and 10")
 
         namedTemplate.update("" +
                 "INSERT INTO points (created_at, receiver_id, giver_id, team_id, amount) " +
