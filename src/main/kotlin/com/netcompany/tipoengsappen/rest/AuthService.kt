@@ -15,6 +15,7 @@ import java.security.SecureRandom
 @Component
 open class AuthService(val openIdConnectAuth: OpenIdConnectAuth,
                        val userDao: UserDao,
+                       @Value("\${open-id-connect.logout-url") val logoutUrl: String,
                        @Value("\${server.url}") val serverUrl: String) : SparkService {
     override fun init() {
         get("/api/auth/login") { req, res ->
@@ -44,7 +45,7 @@ open class AuthService(val openIdConnectAuth: OpenIdConnectAuth,
 
         get("/api/auth/logout") { req, res ->
             req.session().invalidate()
-            res.status(204)
+            res.redirect(logoutUrl)
             res
         }
 

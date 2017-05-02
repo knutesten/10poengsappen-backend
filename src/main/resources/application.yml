@@ -1,6 +1,7 @@
 server.url: http://localhost:8080
 
 open-id-connect:
+  logout-url: https://www.google.com/accounts/Logout
   redirect-uri: http://localhost:4567/api/auth/code
   discovery-document-uri: https://accounts.google.com/.well-known/openid-configuration
   client-id: 241147659016-m5tbp8dgmmmpun4t9415ofvipdthccoi.apps.googleusercontent.com
