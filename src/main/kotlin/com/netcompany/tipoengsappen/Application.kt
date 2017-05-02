@@ -15,7 +15,7 @@ import org.springframework.core.env.Environment
 open class Application {
     @Bean
     open fun init(services: Array<SparkService>, environment: Environment) = CommandLineRunner {
-        if (!environment.activeProfiles.contains("prod")) {
+        if (environment.acceptsProfiles("!prod")) {
             val server = Server.createTcpServer().start()
             println("H2 tcp server started: " + server.url)
         }
