@@ -3,8 +3,13 @@ INSERT INTO user (email, name) VALUES ('tskjetne@gmail.com', 'Torkjel Skjetne');
 INSERT INTO user (email, name) VALUES ('johanne.linde@gmail.com', 'Johanne Birgitte Linde');
 INSERT INTO user (email, name) VALUES ('vegard.harper@gmail.com', 'Vegard Harper');
 INSERT INTO user (email, name) VALUES ('geir.ottersen@gmail.com', 'Geir Ottersen Nipe');
+INSERT INTO user (email, name) VALUES ('aleksi.miikkael@gmail.com', 'Aleksi Miikkael Luukkonen');
 
 INSERT INTO team (display_name, name) VALUES ('PRMS', 'Product Recall Management System');
 
 INSERT INTO user_team (user_id, team_id) VALUES (1, 1);
 INSERT INTO user_team (user_id, team_id) VALUES (2, 1);
+INSERT INTO user_team (user_id, team_id) VALUES (3, 1);
+INSERT INTO user_team (user_id, team_id) VALUES (4, 1);
+INSERT INTO user_team (user_id, team_id) VALUES (5, 1);
+INSERT INTO user_team (user_id, team_id) VALUES (6, 1);
